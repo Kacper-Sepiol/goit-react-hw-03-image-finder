@@ -1,22 +1,23 @@
 import '../styles/styles.css';
 
-const SearchBar = ({ submit }) => (
-  <header className="Searchbar">
-    <form className="SearchForm" onSubmit={submit}>
-      <button type="submit" className="SearchForm-button">
-        <span className="button-label">Search</span>
-      </button>
-
+const SearchBar = ({ submit }) => {
+  <header className="searchbar">
+    <form className="form" onSubmit={this.handleSubmit}>
       <input
-        className="SearchForm-input"
+        className="input"
         type="text"
-        name="input"
         autoComplete="off"
         autoFocus
         placeholder="Search images and photos"
+        value={this.state.query}
+        onChange={this.handleInputChange}
       />
+
+      <button type="submit" className="button">
+        <span className="button-label">Search</span>
+      </button>
     </form>
-  </header>
-);
+  </header>;
+};
 
 export default SearchBar;

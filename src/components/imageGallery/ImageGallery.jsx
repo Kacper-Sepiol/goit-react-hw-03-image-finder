@@ -1,5 +1,7 @@
+import '../styles/styles.css';
+
 const ImageGallery = () => (
-  <ul className="gallery">{/* zbior <li> z obrazami */}</ul>
+  <ul className="ImageGallery">{this.props.children}</ul>
 );
 
 export default ImageGallery;
