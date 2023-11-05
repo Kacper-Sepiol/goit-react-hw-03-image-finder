@@ -1,14 +1,14 @@
-import css from '../styles/styles.css';
+import '../styles/styles.css';
 
 const SearchBar = () => (
-  <header className={css.searchBar}>
-    <form className="form">
-      <button type="submit" className={css.button}>
+  <header className="Searchbar">
+    <form className="SearchForm">
+      <button type="submit" className="SearchForm-button">
         <span className="button-label">Search</span>
       </button>
 
       <input
-        className="input"
+        className="SearchForm-input"
         type="text"
         autoComplete="off"
         autoFocus
