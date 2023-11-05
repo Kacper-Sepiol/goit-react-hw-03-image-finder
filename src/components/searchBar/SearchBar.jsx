@@ -1,8 +1,8 @@
 import '../styles/styles.css';
 
-const SearchBar = () => (
+const SearchBar = ({ submit }) => (
   <header className="Searchbar">
-    <form className="SearchForm">
+    <form className="SearchForm" onSubmit={submit}>
       <button type="submit" className="SearchForm-button">
         <span className="button-label">Search</span>
       </button>
@@ -10,6 +10,7 @@ const SearchBar = () => (
       <input
         className="SearchForm-input"
         type="text"
+        name="input"
         autoComplete="off"
         autoFocus
         placeholder="Search images and photos"
