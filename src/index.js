@@ -22,6 +22,16 @@ class ImageFinder extends React.Component {
     this.props.onSubmit({ query: event.target.value });
   };
 
+  closeModal = () => {
+    this.props.onClose();
+  };
+
+  handleKeyDown = e => {
+    if (e.key === 'Escape') {
+      this.closeModal();
+    }
+  };
+
   render() {
     return (
       <>

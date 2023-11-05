@@ -1,5 +1,5 @@
-const Modal = () => (
-  <div className="overlay">
+const Modal = ({ click }) => (
+  <div className="overlay" onClick={click}>
     <div className="modal">
       <img src="" alt="" />
     </div>
