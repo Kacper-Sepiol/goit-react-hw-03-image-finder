@@ -6,7 +6,18 @@ import ImageGallery from './components/imageGallery/ImageGallery';
 import ImageGalleryItem from './components/imageGalleryItem/ImageGalleryItem';
 import Modal from './components/modal/Modal';
 
-class ImageFinder extends React.Component {}
+class ImageFinder extends React.Component {
+  render() {
+    return (
+      <>
+        <SearchBar></SearchBar>
+        <ImageGallery>
+          <ImageGalleryItem></ImageGalleryItem>
+        </ImageGallery>
+      </>
+    );
+  }
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(<ImageFinder />);
 

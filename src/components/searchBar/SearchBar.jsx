@@ -9,7 +9,7 @@ const SearchBar = () => (
         class="input"
         type="text"
         autocomplete="off"
-        autofocus
+        autoFocus
         placeholder="Search images and photos"
       />
     </form>
