@@ -1,5 +1,5 @@
 const ImageGallery = () => (
-  <ul class="gallery">{/* zbior <li> z obrazami */}</ul>
+  <ul className="gallery">{/* zbior <li> z obrazami */}</ul>
 );
 
 export default ImageGallery;

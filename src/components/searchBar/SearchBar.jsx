@@ -1,14 +1,16 @@
+import css from '../styles/styles.css';
+
 const SearchBar = () => (
-  <header class="searchBar">
-    <form class="form">
-      <button type="submit" class="button">
-        <span class="button-label">Search</span>
+  <header className={css.searchBar}>
+    <form className="form">
+      <button type="submit" className={css.button}>
+        <span className="button-label">Search</span>
       </button>
 
       <input
-        class="input"
+        className="input"
         type="text"
-        autocomplete="off"
+        autoComplete="off"
         autoFocus
         placeholder="Search images and photos"
       />
