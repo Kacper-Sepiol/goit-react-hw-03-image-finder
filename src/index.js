@@ -4,7 +4,6 @@ import './index.css';
 import SearchBar from './components/searchBar/SearchBar';
 import ImageGallery from './components/imageGallery/ImageGallery';
 import ImageGalleryItem from './components/imageGalleryItem/ImageGalleryItem';
-import Modal from './components/modal/Modal';
 import axios from 'axios';
 
 // const url = `https://pixabay.com/api/?q=${pictureName}&page=1&key=38274981-bf681d1339bb2c6c927a948b3&image_type=photo&orientation=horizontal&per_page=12`;
@@ -18,6 +17,7 @@ class ImageFinder extends React.Component {
 
     this.state = {
       keyAPI: '38274981-bf681d1339bb2c6c927a948b3',
+      arrowValues: [],
     };
   }
 
@@ -40,9 +40,12 @@ class ImageFinder extends React.Component {
 
       const hits = response.data.hits;
 
-      console.log(hits[0].id);
-      console.log(hits[0].webformatURL);
-      console.log(hits[0].largeImageURL);
+      this.state.arrowValues.push(hits[0].id);
+      this.state.arrowValues.push(hits[0].webformatURL);
+      this.state.arrowValues.push(hits[0].largeImageURL);
+
+      console.log(this.state.arrowValues);
+
       // for (let i = 0; i <= hits.length; i++) {
       //   console.log(hits[i]);
       // }
@@ -52,11 +55,19 @@ class ImageFinder extends React.Component {
   };
 
   render() {
+    const { arrowValues } = this.state;
+
     return (
       <>
         <SearchBar submit={this.handleSubmit}></SearchBar>
         <ImageGallery>
-          <ImageGalleryItem></ImageGalleryItem>
+          {arrowValues.map(hit => (
+            <ImageGalleryItem
+              key={arrowValues[0]}
+              src={arrowValues[1]}
+              alt={arrowValues[2]}
+            />
+          ))}
         </ImageGallery>
       </>
     );

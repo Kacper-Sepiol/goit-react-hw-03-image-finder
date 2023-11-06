@@ -1,7 +1,7 @@
 import '../styles/styles.css';
 
-const ImageGallery = () => (
-  <ul className="ImageGallery">{/* zbior <li> z obrazami */}</ul>
+const ImageGallery = ({ children }) => (
+  <ul className="ImageGallery">{children}</ul>
 );
 
 export default ImageGallery;

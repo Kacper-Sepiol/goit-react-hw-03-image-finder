@@ -1,6 +1,6 @@
 const ImageGalleryItem = ({ src, alt }) => (
-  <li className="gallery-item">
-    <img src={src} alt={alt} />
+  <li className="ImageGalleryItem">
+    <img src={src} alt={alt} className="ImageGalleryItem-image" />
   </li>
 );
 
