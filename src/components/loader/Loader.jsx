@@ -1,5 +1,11 @@
+import '../styles/styles.css';
+
 const Loader = () => {
-  <div className="loader">{/* tutaj trzeba dodac spinnera */}</div>;
+  return (
+    <div className="loader">
+      <div className="spinner"></div>
+    </div>
+  );
 };
 
 export default Loader;

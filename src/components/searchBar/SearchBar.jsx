@@ -1,22 +1,26 @@
-import '../styles/styles.css';
+import React from 'react';
 
-const SearchBar = ({ submit }) => (
-  <header className="Searchbar">
-    <form className="SearchForm" onSubmit={submit}>
+const Searchbar = ({ onSubmit }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit(e.target.query.value);
+  };
+
+  return (
+    <form className="SearchForm" onSubmit={handleSubmit}>
       <button type="submit" className="SearchForm-button">
-        <span className="button-label">Search</span>
+        <span className="SearchForm-button-label">Search</span>
       </button>
-
       <input
         className="SearchForm-input"
         type="text"
+        name="query"
         autoComplete="off"
-        name="input"
         autoFocus
         placeholder="Search images and photos"
       />
     </form>
-  </header>
-);
+  );
+};
 
-export default SearchBar;
+export default Searchbar;

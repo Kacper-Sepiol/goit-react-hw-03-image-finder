@@ -1,80 +1,84 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import SearchBar from './components/searchBar/SearchBar';
+import Searchbar from './components/searchBar/SearchBar';
 import ImageGallery from './components/imageGallery/ImageGallery';
-import ImageGalleryItem from './components/imageGalleryItem/ImageGalleryItem';
-import axios from 'axios';
+import Loader from './components/loader/Loader';
+import Button from './components/button/Button';
+import Modal from './components/modal/Modal';
 
-// const url = `https://pixabay.com/api/?q=${pictureName}&page=1&key=38274981-bf681d1339bb2c6c927a948b3&image_type=photo&orientation=horizontal&per_page=12`;
-
-class ImageFinder extends React.Component {
-  constructor() {
-    super();
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.fetchImg = this.fetchImg.bind(this);
-
-    this.state = {
-      keyAPI: '38274981-bf681d1339bb2c6c927a948b3',
-      arrowValues: [],
-    };
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    const form = event.target;
-    const input = form.elements.input.value;
-
-    this.fetchImg(input);
-
-    form.reset();
+class App extends React.Component {
+  state = {
+    searchQuery: '',
+    images: [],
+    page: 1,
+    isLoading: false,
+    showModal: false,
+    modalImage: '',
+    maxImages: 0,
   };
 
-  fetchImg = async ({ input }) => {
-    try {
-      const response = await axios.get(
-        `https://pixabay.com/api/?q=${input}&page=1&key=${this.state.keyAPI}&image_type=photo&orientation=horizontal&per_page=12`
-      );
+  handleSearchSubmit = query => {
+    this.setState(
+      { searchQuery: query, images: [], page: 1 },
+      this.fetchImages
+    );
+  };
 
-      const hits = response.data.hits;
+  fetchImages = () => {
+    const { searchQuery, page } = this.state;
+    const apiKey = '38274981-bf681d1339bb2c6c927a948b3';
+    const url = `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
-      this.state.arrowValues.push(hits[0].id);
-      this.state.arrowValues.push(hits[0].webformatURL);
-      this.state.arrowValues.push(hits[0].largeImageURL);
+    this.setState({ isLoading: true });
 
-      console.log(this.state.arrowValues);
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.setState(prevState => ({
+          images: [...prevState.images, ...data.hits],
+          page: prevState.page + 1,
+          maxImages: data.total,
+        }));
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      });
+  };
 
-      // for (let i = 0; i <= hits.length; i++) {
-      //   console.log(hits[i]);
-      // }
-    } catch (error) {
-      console.log(error);
-    }
+  openModal = image => {
+    this.setState({ showModal: true, modalImage: image.largeImageURL });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false, modalImage: '' });
   };
 
   render() {
-    const { arrowValues } = this.state;
+    const { images, isLoading, showModal, modalImage, maxImages } = this.state;
 
     return (
-      <>
-        <SearchBar submit={this.handleSubmit}></SearchBar>
-        <ImageGallery>
-          {arrowValues.map(hit => (
-            <ImageGalleryItem
-              key={arrowValues[0]}
-              src={arrowValues[1]}
-              alt={arrowValues[2]}
-            />
-          ))}
-        </ImageGallery>
-      </>
+      <div className="App">
+        <header className="Searchbar">
+          <Searchbar onSubmit={this.handleSearchSubmit} />
+        </header>
+        <ImageGallery images={images} openModal={this.openModal} />
+        {isLoading && <Loader />}
+        {images.length > 0 && !isLoading && (
+          <Button
+            onClick={this.fetchImages}
+            loading={isLoading}
+            image={images}
+            mImages={maxImages}
+          />
+        )}
+        {showModal && <Modal image={modalImage} closeModal={this.closeModal} />}
+      </div>
     );
   }
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<ImageFinder />);
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 
 // ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
