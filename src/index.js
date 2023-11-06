@@ -6,6 +6,7 @@ import ImageGallery from './components/imageGallery/ImageGallery';
 import Loader from './components/loader/Loader';
 import Button from './components/button/Button';
 import Modal from './components/modal/Modal';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   state = {
