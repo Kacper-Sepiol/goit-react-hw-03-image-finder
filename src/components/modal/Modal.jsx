@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/styles.css';
+import PropTypes from 'prop-types';
 
 const Modal = ({ image, closeModal }) => {
   return (
@@ -9,6 +10,11 @@ const Modal = ({ image, closeModal }) => {
       </div>
     </div>
   );
+};
+
+PropTypes.Modal = {
+  image: PropTypes.array.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default Modal;
